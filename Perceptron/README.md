@@ -118,7 +118,11 @@ Because the Perceptron is a binary classification algorithm, there are 4 outcome
 
 Perceptron algorithm is guaranteed to converge if the data is linearly separable (in other words, you can draw a straight line between two classes without misclassifying any data point). While the Perceptron algorithm is guaranteed to converge on _some_ solution in the case of a linearly separable training set, it may still pick _any_ solution and problems may admit many solutions of varying quality. Meaning, it may not be the best solution; as soon as it draws a straight line correctly, it will not improve it further.
 
+It is important to shuffle data before each epoch, so model is introduced different batch everytime.
+
 Although the Perceptron is a binary classification algorithm, certain techniques exist, such as One-vs-Rest (OvR), also known as One-versus-All (OvA), to transform the Perceptron algorithm into a multi-class classifier.
+
+
 
 ### To-Do 
 - [ ] Add shuffling data before every epoch
