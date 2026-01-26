@@ -16,32 +16,54 @@ Inputs (correspondingly $x$) are passed through synapses and received by dendrit
 
  ![Structure of Artificial Neuron](Images/Structure-of-the-artificial-neuron.png "Artificial neuron")
 
-Given the set of input features *x$_{1}$, x$_{2}$, ..., x$_{n}$* Perceptron model tries to find corresponding weights *w$_{1}$, w$_{2}$, ..., w$_{n}$* which are suitable for mapping input into meaningful output. This process of  learning the model parameters is referred to as **model training**, **model learning**, or simply, **learning**.
+Given the set of input features *$x_{1}$, $x_{2}$, ..., $x_{n}$* Perceptron model tries to find corresponding weights *$w_{1}$, $w_{2}$, ..., $w_{n}$* which are suitable for mapping input into meaningful output. This process of  learning the model parameters is referred to as **model training**, **model learning**, or simply, **learning**.
 
-$$\mathbf{x} = \begin{bmatrix} x_1 \\ x_2 \\⋮ \\ x_n \end{bmatrix} \quad \mathbf{w} = \begin{bmatrix} w_1 \\ w_2 \\⋮ \\ w_n \end{bmatrix}$$
+
+$$
+\mathbf{x} = \begin{bmatrix} x_1 \\ x_2 \\⋮ \\ x_n \end{bmatrix} \quad \mathbf{w} = \begin{bmatrix} w_1 \\ w_2 \\⋮ \\ w_n \end{bmatrix}
+$$
   
   
 We define net input *z* by taking *dot product* between features and weights:
+
 $$z = \mathbf{x} \cdot \mathbf{w} = \sum_{i=1}^{n} x_i w_i = x_1w_1 + x_2w_2 + \dots + x_nw_n$$
+
 > This operation yields a scalar value. Note that you can also perform **matrix multiplication** by treating vectors as $n \times 1$ matrices; in fact, in machine learning, it is standard to treat vectors as $n \times 1$ matrices while still referring to them as vectors. To obtain the same scalar result, we transpose the weight vector $\mathbf{w} \in \mathbb{R}^{n \times 1}$ to $\mathbf{w}^T \in \mathbb{R}^{1 \times n}$ and perform matrix multiplication with $\mathbf{x} \in \mathbb{R}^{n \times 1}$, yielding $z = \mathbf{w}^T\mathbf{x}$. As you may recall from Linear Algebra classes, the product of a $1 \times n$ matrix and an $n \times 1$ matrix is a $1 \times 1$ matrix, which can be treated as a scalar value without issue.
 
 Then, we feed the net input into the activation function. There are many types of activation functions such as Sigmoid, Tanh, and ReLU. For the Perceptron algorithm specifically, the activation function is the **unit step function** (also referred to as the **Heaviside step function**). If the net input is greater than the threshold, the model classifies it as 1, and if not, 0. This is the final step in the prediction, and that prediction is called $\hat{y}$ (y-hat):
-$$σ(z) = \begin{cases}
+
+$$
+σ(z) = \begin{cases}
 1, & z \ge  \theta \\
 0, & otherwise
-\end{cases}$$
+\end{cases}
+$$
+
 > The threshold itself is also learned by the model.
  
 To make the implementation more compact, we can bring $\theta$ to the left side:
-$$σ(z) = \begin{cases}
+
+$$
+σ(z) = \begin{cases}
 1, & z - \theta \ge 0 \\
 0, & otherwise
-\end{cases}$$
+\end{cases}
+$$
 
-At this point, we can define *bias b* = *$-\theta$* and make it part of the net input: 
-$$z = \mathbf{x} \cdot \mathbf{w} + b = \sum_{i=1}^{n} x_i w_i + b = x_1w_1 + x_2w_2 + \dots + x_nw_n + b$$
-We can go further and introduce *x$_{0}$* and *w$_{0}$*, and set them to *x$_{0}$* = 1 and *w$_{0}$* = b. As you can see, we changed nothing but showed a clearer representation. Finally, the redefined equation for net input becomes:
-$$z = \mathbf{x} \cdot \mathbf{w} = \sum_{i=0}^{n} x_i w_i = x_0w_0 + x_1w_1 + \dots + x_nw_n$$
+At this point, we can define *bias b* = -*$\theta$* and make it part of the net input: 
+
+$$
+z = \mathbf{x} \cdot \mathbf{w} + b = \sum_{i=1}^{n} x_i w_i + b = x_1w_1 + x_2w_2 + \dots + x_nw_n + b
+$$
+
+We can go further and introduce *$x_{0}$* and *$w_{0}$*, and set them to *$x_{0}$* = 1 and *$w_{0}$* = b. 
+
+As you can see, we changed nothing but showed a clearer representation. Finally, the redefined equation for net input becomes:
+
+$$
+z = \mathbf{x} \cdot \mathbf{w} = \sum_{i=0}^{n} x_i w_i = x_0w_0 + x_1w_1 + \dots + x_nw_n
+$$
+
 ## The Perceptron Learning Rule
 
 1. Initialize the weights (including bias) to very small random numbers .
@@ -50,15 +72,25 @@ $$z = \mathbf{x} \cdot \mathbf{w} = \sum_{i=0}^{n} x_i w_i = x_0w_0 + x_1w_1 + \
 	a.  Compute output value,  $\hat{y}^{(i)}$
 	b. Update the weights, $\mathbf{w}^{(i)}$
 #### Weight update
+
 The simultaneous update of the  each weight, $w_{j}$, in the weight vector, $\mathbf{w}$, can be more formally written as:
+
 $$w_{j} := w_{j} + \Delta w_{j}$$
+
 The update values (“deltas”) are computed as follows:
+
 $$\Delta w_{j} = η(y^{(i)} - \hat{y}^{(i)})x_{j}^{(i)}$$
+
 Here, $η$ is the learning rate (a constant between 0.0 and 1.0), $y^{(i)}$ is the **true class label** for the $i$-th training sample, and $\hat{y}^{(i)}$ is our **predicted class label** which is found by the activation function defined earlier. In the Perceptron algorithm, the update direction is determined by the prediction error $(y^{(i)} - \hat{y}^{(i)})$ scaled by the input feature $x_j^{(i)}​$, while the learning rate $η$ controls the size of the adjustment step.
+
 Keep in the mind that the weights are updated simultaneously, meaning output $\hat{y}^{(i)}$ is affected after all the weights are updated with same output value, not updated one: 
+
 (note that we can ignore $x_{j}^{(0)}$ for $w_{0}$ because it equals 1)
+
 $$\Delta w_{0} = η(y^{(i)} - output^{(i)})x_{0}^{(i)}$$
+
 $$\Delta w_{1} = η(y^{(i)} - output^{(i)})x_{1}^{(i)} $$
+
 $$\Delta w_{2} = η(y^{(i)} - output^{(i)})x_{2}^{(i)}$$
 
 Now, let's look at how straightforward and beautiful this algorithm is.
