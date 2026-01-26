@@ -16,7 +16,7 @@ Inputs (correspondingly $x$) are passed through synapses and received by dendrit
 
  ![Structure of Artificial Neuron](Images/Structure-of-the-artificial-neuron.png "Artificial neuron")
 
-Given the set of input features *$x_{1}$, $x_{2}$, ..., $x_{n}$* Perceptron model tries to find corresponding weights *$w_{1}$, $w_{2}$, ..., $w_{n}$* which are suitable for mapping input into meaningful output. This process of  learning the model parameters is referred to as **model training**, **model learning**, or simply, **learning**.
+Given the set of input features $x_{1}$, $x_{2}$, ..., $x_{n}$ Perceptron model tries to find corresponding weights $w_{1}$, $w_{2}$, ..., $w_{n}$ which are suitable for mapping input into meaningful output. This process of  learning the model parameters is referred to as **model training**, **model learning**, or simply, **learning**.
 
 
 $$
@@ -50,13 +50,13 @@ $$
 \end{cases}
 $$
 
-At this point, we can define *bias b* = -*$\theta$* and make it part of the net input: 
+At this point, we can define *bias* $b = - \theta$ and make it part of the net input: 
 
 $$
 z = \mathbf{x} \cdot \mathbf{w} + b = \sum_{i=1}^{n} x_i w_i + b = x_1w_1 + x_2w_2 + \dots + x_nw_n + b
 $$
 
-We can go further and introduce *$x_{0}$* and *$w_{0}$*, and set them to *$x_{0}$* = 1 and *$w_{0}$* = b. 
+We can go further and introduce $x_{0}$ and $w_{0}$, and set them to $x_{0}$ = 1 and $w_{0}$ = b. 
 
 As you can see, we changed nothing but showed a clearer representation. Finally, the redefined equation for net input becomes:
 
@@ -69,8 +69,10 @@ $$
 1. Initialize the weights (including bias) to very small random numbers .
 > Generally, especially for gradient descent-based algorithms (Perceptron is not gradient descent-based), you should do this in order to break symmetry. If you initialize weights to the same number, all the received signals will be the same and the model will get stuck redundantly dealing with a dead learning process. If you initialize weights with zero, which is even worse, there will be no signal at all. In addition to randomization, weights must be initialized to small numbers. This is because, at the first iteration, the net input results in high values, and these values correspond to places in some activation functions like Tanh and Sigmoid where the derivative converges to zero.
 2. For each training example, $\mathbf{x}^{(i)}$:
-	a.  Compute output value,  $\hat{y}^{(i)}$
-	b. Update the weights, $\mathbf{w}^{(i)}$
+
+	-  Compute output value,  $\hat{y}^{(i)}$
+	- Update the weights, $\mathbf{w}^{(i)}$
+	
 #### Weight update
 
 The simultaneous update of the  each weight, $w_{j}$, in the weight vector, $\mathbf{w}$, can be more formally written as:
