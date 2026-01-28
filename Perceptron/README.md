@@ -127,4 +127,5 @@ Although the Perceptron is a binary classification algorithm, certain techniques
 ### To-Do 
 - [ ] Add shuffling data before every epoch
 - [ ] Build One-vs-Rest
+- [ ] Add comparison with scikit-learn
 
