@@ -32,7 +32,7 @@ def compute_gradient(X, y, theta):
     return gradient
 
 
-def gradient_descent(X, y, theta_init, learning_rate, iterations):
+def gradient_descent(X, y, learning_rate, iterations):
     thetas = theta_init.copy()
     for iter in range(iterations + 1):
         if iter % 10 == 0:
@@ -43,7 +43,7 @@ def gradient_descent(X, y, theta_init, learning_rate, iterations):
     return thetas
 
 
-final_thetas = gradient_descent(X_train, y_train, theta_init, learning_rate=0.02, iterations=15000)
+final_thetas = gradient_descent(X_train, y_train, learning_rate=0.02, iterations=15000)
 
 
 
